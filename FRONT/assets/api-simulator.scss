@@ -1,0 +1,53 @@
+@import "~bulma/sass/utilities/_all";
+
+//template pour add une font
+
+@font-face {
+  font-family: "droid-sans-mono";
+  src: url("fonts/droid-sans-mono/droid-sans-mono.eot?") format("eot"),
+  url("fonts/droid-sans-mono/droid-sans-mono.woff") format("woff"),
+  url("fonts/droid-sans-mono/droid-sans-mono.ttf") format("truetype"),
+  url("fonts/droid-sans-mono/droid-sans-mono.svg#TradeGothic") format("svg");
+}
+
+/* Overrides goes between here... */
+
+$pink: #ffb3b3;
+$lavenderblush: #FFF0F5;
+$white: #fff;
+$red: #ff3860;
+$black: #000;
+
+
+$family-serif: "droid-sans-mono";
+$radius-small:	0px;
+$radius:	0px;
+$radius-large:	0px;
+
+
+$primary: $pink;
+$primary-invert: $white;
+
+/*  COLOR HEADER */
+
+$navbar-dropdown-arrow: $white;
+
+$navbar-item-hover-color: $pink;
+$navbar-item-active-color: $pink;
+$navbar-dropdown-item-hover-color: $pink;
+
+
+/*  NOTIFICATIONS CONFIGURATION HEADER  */
+
+$notification-padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+
+
+/*           REMOVE DROP BOX       */
+
+$navbar-dropdown-boxed-shadow: 	0 0px 0px rgba($black, 0.1), 0 0 0 1px rgba($black, 0.1);
+$navbar-box-shadow-size: 0 0 0 0;
+
+
+/*  */
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
