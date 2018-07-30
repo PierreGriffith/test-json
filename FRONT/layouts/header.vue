@@ -4,13 +4,13 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            Primary title
+           <p>
+            TMP API 👨‍💻
+           </p>
           </h1>
-          <h2 class="subtitle">
-            Primary subtitle
-          </h2>
           <h3 class="subtitle">
-            <progress class="progress is-small" value="15" max="100">15%</progress>
+            <p> test your front-end here, you can launch a new server or reload an old one 👍</p>
+            <p> if you enter a server who doesnt exist we create a new one 😱</p>
           </h3>
         </div>
       </div>
@@ -26,10 +26,6 @@
       }
     },
     methods: {
-     // async fetchSomething() {
-      //  const ip = await this.$axios.$get('http://localhost:8077')
-      //  this.ip = ip
-      //}
     }
   }
 </script>

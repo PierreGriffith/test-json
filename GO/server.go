@@ -2,35 +2,59 @@ package main
 
 import (
 	"net/http"
-	"fmt"
-	"sync"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/jinzhu/gorm"
+	"github.com/rs/xid"
 )
-var mutex = &sync.Mutex{}
 
-var actual_id int
-
-type CurrentJson struct {
-	Id int `json`
-	Content string `json`
+type currentjson struct {
+	Id   string  `json:"server"`
+	Content string `json:"coder"`
 }
 
-type ShoutOut struct {
-	Content string `json:"content"`
-	Id int `json`
+func handler_json(writer http.ResponseWriter, request *http.Request) {
+
+	db, _ := gorm.Open("mysql", "root:root@/test-api?charset=utf8&parseTime=True&loc=Local")
+	db.SingularTable(true)
+	defer db.Close()
+
+	var tmp currentjson
+	server := request.URL.Query()["server"];
+	db.First(&tmp, "Id = ?", server[0])
+
+	writer.Write([]byte(tmp.Content))
+
 }
 
 func handler(writer http.ResponseWriter, request *http.Request) {
-	mutex.Lock()
- 	actual_id = actual_id + 1
-	mutex.Unlock()
-	fmt.Fprintf(writer, "Hello World, %s!", actual_id , request.URL.Path[1:])
+
+	db, _ := gorm.Open("mysql", "root:root@/test-api?charset=utf8&parseTime=True&loc=Local")
+	db.SingularTable(true)
+	defer db.Close()
+
+	code := request.URL.Query()["code"];
+	server := request.URL.Query()["server"];
+
+	var tmp currentjson
+
+	// check if id exists
+	if db.Where("Id = ?", server[0]).First(&tmp).RecordNotFound() {
+		//or create a new ID
+		guid := xid.New()
+		db.Create(&currentjson{Content: code[0], Id: guid.String()})
+		writer.Write([]byte(tmp.Content))
+
+	}
+
+	// automatic change the id
+	if err := db.Model(&tmp).Where("Id = ?", server[0]).Update("Content", code[0]).Error; err != nil{
+	}
+
 }
-
-
 
 func main() {
-	actual_id = 0;
-	http.HandleFunc("/home", handler)
+
+	http.HandleFunc("/json", handler_json)
 	http.HandleFunc("/api", handler)
 	http.ListenAndServe(":8077", nil)
-}
+	}
