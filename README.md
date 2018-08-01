@@ -1,2 +1,4 @@
 # test-json
-one of my secret project in go/nuxt bulma 😜
+Recode of MYJSON.
+
+Dont try it the DB is not clouded
